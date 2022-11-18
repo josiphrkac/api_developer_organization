@@ -89,4 +89,16 @@ class Developer
         $this->dev_name = $row['dev_name'];
         $this->max_sal = $row['dev_salary'];
     }
+
+    public function readFront_dev()
+    {
+        $query = "SELECT d.dev_name
+        FROM " . $this->dev_table . " d 
+        WHERE d.dev_role 
+        LIKE 'front%'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
