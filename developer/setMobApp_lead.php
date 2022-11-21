@@ -6,7 +6,7 @@ header('Acces-Control-Allow-Methods: PUT');
 header('Access-Conrol-Allow-Headers:Access-Conrol-Allow-Headers,Access-Conrol-Allow-Methods, Content-type, Authentication,X-Requested-With');
 
 include_once "../../config/Database.php";
-include_once "../../model/Developer.php";
+include_once "../model/Developer.php";
 
 $database = new Database;
 $db = $database->connect();
