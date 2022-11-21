@@ -8,7 +8,7 @@ class Employee
     private $emp_table = 'employee';
 
     public $emp_id;
-    public $emp__name;
+    public $emp_name;
     public $emp_role;
     public $emp_salary;
     public $lead_id;
@@ -16,6 +16,7 @@ class Employee
     public $project_name;
     public $back_dev;
     public $max_sal;
+
 
 
 
@@ -101,5 +102,22 @@ class Employee
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
+    }
+
+    public function read_single_dev()
+    {
+        $query = 'SELECT e.emp_name, e.emp_role, e.emp_salary
+        FROM ' . $this->emp_table . ' e
+        WHERE e.emp_id = :emp_id';
+
+        $stmt = $this->conn->prepare($query);
+        $this->emp_id = htmlspecialchars((strip_tags($this->emp_id)));
+        $stmt->bindParam(':emp_id', $this->emp_id);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->emp_name = $row['emp_name'];
+        $this->emp_role = $row['emp_role'];
+        $this->emp_salary = $row['emp_salary'];
     }
 }
