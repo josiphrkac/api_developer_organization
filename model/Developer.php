@@ -7,10 +7,10 @@ class Employee
     private $project_table = 'project';
     private $emp_table = 'employee';
 
-    public $dev_id;
-    public $dev__name;
-    public $dev_role;
-    public $dev_salary;
+    public $emp_id;
+    public $emp__name;
+    public $emp_role;
+    public $emp_salary;
     public $lead_id;
     public $project_id;
     public $project_name;
@@ -52,10 +52,10 @@ class Employee
     public function readProject_leaders()
     {
 
-        $query = 'SELECT p.project_name, e.dev_name
+        $query = 'SELECT p.project_name, e.emp_name
         FROM ' . $this->project_table . ' p
         INNER JOIN ' . $this->emp_table . ' e 
-        ON p.lead_id = e.dev_id';
+        ON p.lead_id = e.emp_id';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -65,9 +65,9 @@ class Employee
 
     public function readMax_salary()
     {
-        $query = 'SELECT e.dev_id, e.dev_name, e.dev_salary
+        $query = 'SELECT e.emp_id, e.emp_name, e.emp_salary
         FROM ' . $this->emp_table . ' e
-        ORDER BY dev_salary DESC
+        ORDER BY emp_salary DESC
         LIMIT 1';
 
         $stmt = $this->conn->prepare($query);
@@ -75,16 +75,16 @@ class Employee
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-        $this->dev_id = $row['dev_id'];
-        $this->dev_name = $row['dev_name'];
-        $this->max_sal = $row['dev_salary'];
+        $this->emp_id = $row['emp_id'];
+        $this->emp_name = $row['emp_name'];
+        $this->max_sal = $row['emp_salary'];
     }
 
     public function readFront_dev()
     {
-        $query = "SELECT e.dev_name
+        $query = "SELECT e.emp_name
         FROM ' . $this->emp_table . ' e
-        WHERE e.dev_role 
+        WHERE e.emp_role 
         LIKE 'front%'";
 
         $stmt = $this->conn->prepare($query);
@@ -93,9 +93,9 @@ class Employee
     }
     public function readBackend_dev()
     {
-        $query = "SELECT e.dev_name
+        $query = "SELECT e.emp_name
         FROM ' . $this->emp_table . ' e
-        WHERE e.dev_role 
+        WHERE e.emp_role 
         LIKE 'back%'";
 
         $stmt = $this->conn->prepare($query);

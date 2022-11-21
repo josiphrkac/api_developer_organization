@@ -25,7 +25,7 @@ if ($devs_num > 0) {
         $devs_items = array(
 
             'project_name' => $project_name,
-            'project_lead' => $dev_name
+            'project_lead' => $emp_name
 
         );
         array_push($devs['data'], $devs_items);

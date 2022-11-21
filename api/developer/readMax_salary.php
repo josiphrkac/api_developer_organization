@@ -12,8 +12,8 @@ $developer = new Employee($db);
 $developer->readMax_salary();
 
 $salary = array(
-    'id' => $developer->dev_id,
-    'dev_name' => $developer->dev_name,
+    'id' => $developer->emp_id,
+    'dev_name' => $developer->emp_name,
     'max_salary' => $developer->max_sal
 
 );

@@ -21,7 +21,7 @@ if ($num_back > 0) {
         extract($row);
 
         $back_values = array(
-            'backdevs_name' => $dev_name
+            'backdevs_name' => $emp_name
         );
         echo json_encode($back_values);
     }
