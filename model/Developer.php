@@ -1,11 +1,11 @@
 <?php
 
 
-class Developer
+class Employee
 {
     public $conn;
     private $project_table = 'project';
-    private $dev_table = 'developer';
+    private $emp_table = 'employee';
 
     public $dev_id;
     public $dev__name;
@@ -52,31 +52,21 @@ class Developer
     public function readProject_leaders()
     {
 
-        $query = 'SELECT p.project_name, d.dev_name
+        $query = 'SELECT p.project_name, e.dev_name
         FROM ' . $this->project_table . ' p
-        INNER JOIN developer d
-        ON p.lead_id = d.dev_id';
+        INNER JOIN ' . $this->emp_table . ' e 
+        ON p.lead_id = e.dev_id';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    public function readBackend_dev()
-    {
-        $query = "SELECT d.dev_name
-        FROM " . $this->dev_table . " d 
-        WHERE d.dev_role 
-        LIKE 'back%'";
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
     public function readMax_salary()
     {
-        $query = 'SELECT d.dev_id, d.dev_name, d.dev_salary
-        FROM ' . $this->dev_table . ' d 
+        $query = 'SELECT e.dev_id, e.dev_name, e.dev_salary
+        FROM ' . $this->emp_table . ' e
         ORDER BY dev_salary DESC
         LIMIT 1';
 
@@ -92,10 +82,21 @@ class Developer
 
     public function readFront_dev()
     {
-        $query = "SELECT d.dev_name
-        FROM " . $this->dev_table . " d 
-        WHERE d.dev_role 
+        $query = "SELECT e.dev_name
+        FROM ' . $this->emp_table . ' e
+        WHERE e.dev_role 
         LIKE 'front%'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    public function readBackend_dev()
+    {
+        $query = "SELECT e.dev_name
+        FROM ' . $this->emp_table . ' e
+        WHERE e.dev_role 
+        LIKE 'back%'";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
