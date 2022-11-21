@@ -11,7 +11,7 @@ include_once "../../model/Developer.php";
 $database = new Database;
 $db = $database->connect();
 
-$developer = new Developer($db);
+$developer = new Employee($db);
 
 $json = file_get_contents('php://input');
 $data = json_decode($json);
