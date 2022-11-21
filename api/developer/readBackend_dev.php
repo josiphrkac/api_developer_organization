@@ -9,7 +9,7 @@ include_once "../../model/Developer.php";
 $database = new Database;
 $db = $database->connect();
 
-$developer = new Developer($db);
+$developer = new Employee($db);
 $result = $developer->readBackend_dev();
 $num_back = $result->rowCount();
 

@@ -8,7 +8,7 @@ include_once "../../model/Developer.php";
 $database = new Database;
 $db = $database->connect();
 
-$developer = new Developer($db);
+$developer = new Employee($db);
 $developer->readMax_salary();
 
 $salary = array(
