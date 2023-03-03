@@ -57,5 +57,43 @@ class Crud
             return json_encode($data);
         }
     }
+  public function projectList(){
 
-}
+      $sql = 'SELECT e.emp_name as project_lead, p.project_type, p.project_description
+      FROM '. $this->projectTable .' p
+      LEFT JOIN ' . $this->employeeTable . ' e ON p.proj_manager_id=e.emp_id';
+
+      $stmt = $this->conn->prepare($sql);
+
+      if ($stmt->execute()) {
+
+          $num_rows = $stmt->rowCount();
+          if (!empty($num_rows)) {
+
+              $data = [
+                  'status' => self::SUCCESS_STATUS,
+                  'message' => self::SUCCESS_MESSAGE,
+                  'All Employees' => $stmt->fetchAll()
+              ];
+              header("HTTP/1.0" . self::SUCCESS_STATUS . " " . self::SUCCESS_MESSAGE);
+              return json_encode($data);
+
+          } else
+              $data = [
+                  'status' => self::NOT_FOUND_STATUS,
+                  'message' => self::NOT_FOUND_MESSAGE
+              ];
+          header("HTTP/1.0" . self::NOT_FOUND_STATUS . " " . self::NOT_FOUND_MESSAGE);
+          return json_encode($data);
+
+      } else {
+          $data = [
+              'status' => self::ERROR_STATUS,
+              'message' => self::ERROR_MESSAGE
+          ];
+          header("HTTP/1.0 500 Internal Server Error");
+          return json_encode($data);
+      }
+  }
+
+  }
