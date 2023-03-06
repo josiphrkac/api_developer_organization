@@ -4,6 +4,10 @@ require_once __DIR__ .'/../vendor/autoload.php';
 class Crud
 {
     private $conn;
+    public $emp_id;
+    public $emp_name;
+    public $emp_role;
+    public $emp_salary;
     private $employeeTable;
     private $projectTable;
     const SUCCESS_STATUS = 200;
@@ -26,6 +30,7 @@ class Crud
     public function employeeList()
     {
         $sql = 'SELECT emp_id, emp_name, emp_role, emp_salary FROM ' . $this->employeeTable . ' ';
+
         $stmt = $this->conn->prepare($sql);
 
         if ($stmt->execute()) {
@@ -95,5 +100,28 @@ class Crud
           return json_encode($data);
       }
   }
+  public function singleDev(){
+      $sql = 'SELECT emp_id, emp_name, emp_role, emp_salary 
+            FROM ' . $this->employeeTable . ' 
+            WHERE emp_id = :emp_id';
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bindParam(':emp_id', $this->emp_id);
+      $stmt->execute();
+
+      if ($stmt->rowCount() == 1) {
+          $employee = $stmt->fetch();
+          return [
+              'status' => self::SUCCESS_STATUS,
+              'message' => self::SUCCESS_MESSAGE,
+              'Employee' => $employee
+          ];
+      } else {
+          return [
+              'status' => self::NOT_FOUND_STATUS,
+              'message' => self::NOT_FOUND_MESSAGE,
+          ];
+      }
+  }
+
 
   }
