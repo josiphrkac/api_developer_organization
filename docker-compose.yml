@@ -6,6 +6,8 @@ services:
     container_name: api_c
     ports:
       - '80:80'
+    env_file:
+      - ./api_php/.env
     volumes:
       - ./api_php:/var/www/html
     depends_on:
