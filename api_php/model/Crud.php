@@ -8,8 +8,15 @@ class Crud
     public $emp_name;
     public $emp_role;
     public $emp_salary;
+    public $request_id;
+    public $project_type;
+    public $project_budget;
+    public $project_description;
+    public $project_deadline;
+    public $proj_manager_id;
     private $employeeTable;
     private $projectTable;
+
     const SUCCESS_STATUS = 200;
     const NOT_FOUND_STATUS = 404;
     const ERROR_STATUS = 500;
@@ -122,6 +129,45 @@ class Crud
           ];
       }
   }
+    public function addProject()
+    {
+        $query = 'INSERT INTO ' . $this->projectTable . ' SET 
+        project_type = :project_type, project_budget = :project_budget,
+        project_description = :project_description, project_deadline = :project_deadline, proj_manager_id = :proj_manager_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->project_type = htmlspecialchars(strip_tags($this->project_type));
+        $this->project_budget = htmlspecialchars(strip_tags($this->project_budget));
+        $this->project_description = htmlspecialchars(strip_tags($this->project_description));
 
 
-  }
+        if (!isset($this->project_deadline)) {
+            $this->project_deadline = null;
+        } else {
+            $this->project_deadline = htmlspecialchars(strip_tags($this->project_deadline));
+        }
+        if (!isset($this->proj_manager_id)) {
+            $this->proj_manager_id = null;
+        } else {
+            $this->proj_manager_id = htmlspecialchars(strip_tags($this->proj_manager_id));
+        }
+        // Bind parameters
+        $stmt->bindParam(':project_type', $this->project_type);
+        $stmt->bindParam(':project_budget', $this->project_budget);
+        $stmt->bindParam(':project_description', $this->project_description);
+        $stmt->bindParam(':project_deadline', $this->project_deadline);
+        $stmt->bindParam(':proj_manager_id', $this->proj_manager_id);
+
+        // Execute query
+        if($stmt->execute()) {
+            return true;
+        }
+
+        // Print error if something goes wrong
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
+}
