@@ -205,5 +205,24 @@ class Crud
 
             return false;
         }
+
+    }
+    public function deleteRow() {
+        $sql = 'DELETE FROM ' . $this->projectTable . ' WHERE request_id = :request_id';
+
+        $stmt = $this->conn->prepare($sql);
+        $this->request_id = htmlspecialchars(strip_tags($this->request_id));
+        $stmt->bindParam(':request_id', $this->request_id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+
+            return false;
+        }
+
+
     }
 }
