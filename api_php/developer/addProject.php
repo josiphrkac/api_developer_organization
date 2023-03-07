@@ -38,7 +38,7 @@ $crud->proj_manager_id = $data['proj_manager_id'];
 
 // Create project
 if ($crud->addProject()) {
-    http_response_code(201);
+    http_response_code(200);
     echo json_encode(array('message' => 'Project Added'));
 } else {
     http_response_code(500);
