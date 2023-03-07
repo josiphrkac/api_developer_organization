@@ -13,7 +13,7 @@ $db = $database->connect();
 
 $crud = new Crud($db);
 
-// Get data from the request body
+
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Validate required data
