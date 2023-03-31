@@ -1,0 +1,4 @@
+.idea/
+mysql/
+api_php/vendor/
+api_php/.env
