@@ -14,3 +14,4 @@ DB_HOST: The hostname of the MySQL database container.
 DB_NAME: The name of the MySQL database.
 DB_USER: The username of the MySQL database user.
 DB_PASSWORD: The password of the MySQL database user.ur browser and go to http://localhost:80 to access the API.
+DB_PORT: Set it equal to the port number you want to use for your MySQL database.
