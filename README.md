@@ -1,4 +1,4 @@
-# api_developer_organization
+
 # api_developer_organization
 Containerized API
 This is an API that has been containerized using Docker Compose and built with PHP and MySQL. By cloning this repository and running the command docker-compose up, you can easily launch the API on your local machine.
