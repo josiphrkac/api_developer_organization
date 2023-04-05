@@ -7,7 +7,8 @@ Installation and Usage
 1.Clone this repository to your local machine.
 2.Navigate to the root directory of the project.
 3.Start the Docker Compose containers-docker-compose up.
-4.Open yoConfiguration
+4.Open your Configuration file
+
 The following environment variables can be configured through a .env file in the api_php directory:
 
 DB_HOST: The hostname of the MySQL database container.
