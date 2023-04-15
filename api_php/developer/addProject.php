@@ -16,7 +16,7 @@ $crud = new Crud($db);
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Validate required data
+
 if (
     empty($data['project_type']) ||
     empty($data['project_budget']) ||
@@ -29,14 +29,14 @@ if (
     exit();
 }
 
-// Set properties
+
 $crud->project_type = $data['project_type'];
 $crud->project_budget = $data['project_budget'];
 $crud->project_description = $data['project_description'];
 $crud->project_deadline = $data['project_deadline'];
 $crud->proj_manager_id = $data['proj_manager_id'];
 
-// Create project
+
 if ($crud->addProject()) {
     http_response_code(200);
     echo json_encode(array('message' => 'Project Added'));

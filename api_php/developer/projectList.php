@@ -14,14 +14,15 @@ $db_conn = $database->connect();
 
 $crud = new Crud($db_conn);
 
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
     $result = $crud->projectList();
     echo $result;
 
 } else {
-    $data =[
-        'status'=>405,
-        'message'=>'Only GET Method Allowed'
+    $data = [
+        'status' => 405,
+        'message' => 'Only GET Method Allowed'
     ];
     header("HTTP/1.0 405 Only GET Method Allowed");
     echo json_encode($data);

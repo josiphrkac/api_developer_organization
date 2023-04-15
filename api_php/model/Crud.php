@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ .'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Crud
 {
@@ -74,8 +74,8 @@ class Crud
     {
 
         $sql = 'SELECT e.emp_name as project_lead, p.project_type, p.project_description
-      FROM ' . $this->projectTable . ' p
-      LEFT JOIN ' . $this->employeeTable . ' e ON p.proj_manager_id=e.emp_id';
+                FROM ' . $this->projectTable . ' p
+                LEFT JOIN ' . $this->employeeTable . ' e ON p.proj_manager_id=e.emp_id';
 
         $stmt = $this->conn->prepare($sql);
 
@@ -113,8 +113,8 @@ class Crud
     public function singleDev()
     {
         $sql = 'SELECT emp_id, emp_name, emp_role, emp_salary 
-            FROM ' . $this->employeeTable . ' 
-            WHERE emp_id = :emp_id';
+               FROM ' . $this->employeeTable . ' 
+               WHERE emp_id = :emp_id';
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':emp_id', $this->emp_id);
         $stmt->execute();
@@ -137,8 +137,8 @@ class Crud
     public function addProject()
     {
         $sql = 'INSERT INTO ' . $this->projectTable . ' SET 
-        project_type = :project_type, project_budget = :project_budget,
-        project_description = :project_description, project_deadline = :project_deadline, proj_manager_id = :proj_manager_id';
+               project_type = :project_type, project_budget = :project_budget,
+                project_description = :project_description, project_deadline = :project_deadline, proj_manager_id = :proj_manager_id';
 
         $stmt = $this->conn->prepare($sql);
 
@@ -178,9 +178,9 @@ class Crud
 
     public function editEmployeeTable()
     {
-        $sql = 'UPDATE '. $this->employeeTable .'
-        SET emp_name = :emp_name, emp_role= :emp_role, emp_salary = :emp_salary
-        WHERE emp_id = :emp_id ';
+        $sql = 'UPDATE ' . $this->employeeTable . '
+               SET emp_name = :emp_name, emp_role= :emp_role, emp_salary = :emp_salary
+               WHERE emp_id = :emp_id ';
 
         $stmt = $this->conn->prepare($sql);
 
@@ -207,7 +207,8 @@ class Crud
         }
 
     }
-    public function deleteRow() {
+    public function deleteRow()
+    {
         $sql = 'DELETE FROM ' . $this->projectTable . ' WHERE request_id = :request_id';
 
         $stmt = $this->conn->prepare($sql);
@@ -222,7 +223,5 @@ class Crud
 
             return false;
         }
-
-
     }
 }

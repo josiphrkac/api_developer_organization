@@ -16,18 +16,18 @@ $crud = new Crud($db);
 $data = json_decode(file_get_contents('php://input'), true);
 
 
-if (empty($data['request_id'])){
-http_response_code(400);
-echo json_encode(array('message' => 'Missing required data'));
-exit();
+if (empty($data['request_id'])) {
+    http_response_code(400);
+    echo json_encode(array('message' => 'Missing required data'));
+    exit();
 }
 
 $crud->request_id = $data['request_id'];
 
 
 if ($crud->deleteRow()) {
-http_response_code(200);
-echo json_encode(array('message' => 'Project deleted'));
+    http_response_code(200);
+    echo json_encode(array('message' => 'Project deleted'));
 } else {
     http_response_code(500);
     echo json_encode(array('message' => 'Project not deleted'));
