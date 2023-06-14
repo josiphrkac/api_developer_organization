@@ -5,6 +5,9 @@ class Crud
 {
     private $conn;
     public $emp_id;
+    public $emp_name;
+    public $emp_role;
+    public $emp_salary;
     private $employeeTable;
     private $projectTable;
     const SUCCESS_STATUS = 200;
@@ -115,10 +118,40 @@ class Crud
                 'Employee' => $employee
             ];
         } else {
-            return [
+            $data = [
                 'status' => self::NOT_FOUND_STATUS,
-                'message' => self::NOT_FOUND_MESSAGE,
+                'message' => self::NOT_FOUND_MESSAGE
             ];
+            header("HTTP/1.0" . self::NOT_FOUND_STATUS . " " . self::NOT_FOUND_MESSAGE);
+            return json_encode($data);
+        }
+    }
+
+    public function addEmployee()
+    {
+        $sql = 'INSERT INTO ' . $this->employeeTable . ' (emp_name, emp_role, emp_salary) VALUES (?, ?, ?)';
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $this->emp_name);
+        $stmt->bindParam(2, $this->emp_role);
+        $stmt->bindParam(3, $this->emp_salary);
+
+        if ($stmt->execute()) {
+            $sql2 = 'SELECT * FROM ' . $this->employeeTable . ' ORDER BY ID DESC LIMIT 1';
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->execute();
+            $newEmployee = $stmt2->fetch();
+            $data = [
+                'status' => self::SUCCESS_STATUS,
+                'message' => self::SUCCESS_MESSAGE,
+                'New Employee' => $newEmployee
+            ];
+            header("HTTP/1.0" . self::SUCCESS_STATUS . " " . self::SUCCESS_MESSAGE);
+            return json_encode($data);
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+            return false;
         }
     }
 }
