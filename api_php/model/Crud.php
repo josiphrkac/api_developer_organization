@@ -99,9 +99,9 @@ class Crud
 
     public function singleDev()
     {
-        $sql = 'SELECT emp_id, emp_name, emp_role, emp_salary 
+        $sql = 'SELECT id, emp_name, emp_role, emp_salary 
                FROM ' . $this->employeeTable . ' 
-               WHERE emp_id = :emp_id ';
+               WHERE id = :emp_id';
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':emp_id', $this->emp_id);
