@@ -1,8 +1,6 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+
 header('Content-Type: application/json');
-header('Access-Control-Allow-Method: GET');
-header('Access-Control-Allow-Header, Content-Type, Access-Control-Allow-Headers, Authorization, X_Request-With');
 
 
 
@@ -18,7 +16,6 @@ $crud = new Crud($db_conn);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result = $crud->employeeList();
     echo $result;
-
 } else {
     $data = [
         'status' => 405,

@@ -36,7 +36,7 @@ class Crud
 
     public function employeeList()
     {
-        $sql = 'SELECT emp_id, emp_name, emp_role, emp_salary FROM '. $this->employeeTable .' ';
+        $sql = 'SELECT id, emp_name, emp_role, emp_salary FROM ' . $this->employeeTable . ' ';
 
         $stmt = $this->conn->prepare($sql);
 
@@ -51,8 +51,7 @@ class Crud
                     'All Employees' => $stmt->fetchAll()
                 ];
                 header("HTTP/1.0" . self::SUCCESS_STATUS . " " . self::SUCCESS_MESSAGE);
-                return json_encode($data); 
-
+                return json_encode($data);
             } else
                 $data = [
                     'status' => self::NOT_FOUND_STATUS,
@@ -91,7 +90,6 @@ class Crud
                 ];
                 header("HTTP/1.0" . self::SUCCESS_STATUS . " " . self::SUCCESS_MESSAGE);
                 return json_encode($data);
-
             } else
                 $data = [
                     'status' => self::NOT_FOUND_STATUS,
@@ -99,7 +97,6 @@ class Crud
                 ];
             header("HTTP/1.0" . self::NOT_FOUND_STATUS . " " . self::NOT_FOUND_MESSAGE);
             return json_encode($data);
-
         } else {
             $data = [
                 'status' => self::ERROR_STATUS,
@@ -134,6 +131,4 @@ class Crud
             ];
         }
     }
-
-   
 }

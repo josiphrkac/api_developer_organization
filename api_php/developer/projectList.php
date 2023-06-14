@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $result = $crud->projectList();
     echo $result;
-
 } else {
     $data = [
         'status' => 405,
