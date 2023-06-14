@@ -5,18 +5,8 @@ class Crud
 {
     private $conn;
     public $emp_id;
-    public $emp_name;
-    public $emp_role;
-    public $emp_salary;
-    public $request_id;
-    public $project_type;
-    public $project_budget;
-    public $project_description;
-    public $project_deadline;
-    public $proj_manager_id;
     private $employeeTable;
     private $projectTable;
-
     const SUCCESS_STATUS = 200;
     const NOT_FOUND_STATUS = 404;
     const ERROR_STATUS = 500;
@@ -72,9 +62,9 @@ class Crud
     public function projectList()
     {
 
-        $sql = 'SELECT e.emp_name as project_lead, p.project_type, p.project_description
+        $sql = 'SELECT e.emp_name, p.project_name, p.project_description
                 FROM ' . $this->projectTable . ' p
-                LEFT JOIN ' . $this->employeeTable . ' e ON p.proj_manager_id=e.emp_id';
+                LEFT JOIN ' . $this->employeeTable . ' e ON p.lead_id=e.id';
 
         $stmt = $this->conn->prepare($sql);
 
