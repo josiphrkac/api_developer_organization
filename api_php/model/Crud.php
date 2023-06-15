@@ -154,4 +154,36 @@ class Crud
             return false;
         }
     }
+    public function updateEmployeeList()
+    {
+        $sql = 'UPDATE ' . $this->employeeTable . ' SET emp_name = :emp_name, emp_role = :emp_role, emp_salary = :emp_salary
+        WHERE id = :id';
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':emp_name', $this->emp_name);
+        $stmt->bindParam(':emp_role', $this->emp_role);
+        $stmt->bindParam(':emp_salary', $this->emp_salary);
+        $stmt->bindParam(':id', $this->emp_id);
+
+        if ($stmt->execute()) {
+            $sql2 = 'SELECT * FROM ' . $this->employeeTable . ' WHERE id = :id';
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bindParam(':id', $this->emp_id);
+            $stmt2->execute();
+            $updatedEmployee = $stmt2->fetch();
+            $data = [
+                'status' => self::SUCCESS_STATUS,
+                'message' => self::SUCCESS_MESSAGE,
+                'Updated Employee' => $updatedEmployee
+
+            ];
+
+            header("HTTP/1.0" . self::SUCCESS_STATUS . " " . self::SUCCESS_MESSAGE);
+            return json_encode($data);
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+            return false;
+        }
+    }
 }
