@@ -186,4 +186,18 @@ class Crud
             return false;
         }
     }
+    public function deleteEmployee()
+    {
+        $sql = 'DELETE FROM ' . $this->employeeTable . ' WHERE id = :id ';
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $this->emp_id);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            printf("Error: %s.\n", $stmt->error);
+            return false;
+        }
+    }
 }
